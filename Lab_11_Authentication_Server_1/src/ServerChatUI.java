@@ -69,7 +69,7 @@ public class ServerChatUI extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				String text=textField.getText();
-				addMessage(text,"Server");
+				addMessage(text,"Me ");
 				Packet packet=new Packet(PacketType.MSG,text);
 				server.sendMessage(packet);
 			}
@@ -97,7 +97,7 @@ public class ServerChatUI extends JFrame {
 	
 	public void addMessage(String msg,String sender) {
 		
-		textArea.setText(textArea.getText()+"\n"+sender+": "+msg);
+		textArea.setText(textArea.getText()+"\n"+sender+":"+msg);
 	}
 
 }
