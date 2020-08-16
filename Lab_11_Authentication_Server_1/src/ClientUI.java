@@ -37,25 +37,27 @@ public class ClientUI extends JFrame {
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(new Rectangle(0, 0, 50, 100));
+		panel.setBounds(new Rectangle(5, 234, 440, 39));
 		
-		contentPane.add(panel, BorderLayout.SOUTH);
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		contentPane.add(panel);
+		panel.setLayout(null);
 		
 		textField = new JTextField();
-		textField.setBounds(new Rectangle(0, 0, 500, 0));
+		textField.setBounds(new Rectangle(6, 5, 279, 19));
 		panel.add(textField);
 		textField.setColumns(30);
 		
 		btnSend = new JButton("Send");
+		btnSend.setBounds(284, 2, 139, 29);
 		panel.add(btnSend);
 		
 		scrollPane = new JScrollPane();
-		contentPane.add(scrollPane, BorderLayout.CENTER);
+		scrollPane.setBounds(5, 5, 440, 229);
+		contentPane.add(scrollPane);
 		
 		textArea = new JTextArea();
 		scrollPane.setViewportView(textArea);

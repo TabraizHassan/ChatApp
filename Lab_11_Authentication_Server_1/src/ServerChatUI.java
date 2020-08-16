@@ -14,6 +14,7 @@ import java.awt.event.KeyListener;
 import java.awt.FlowLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import java.awt.Color;
 
 public class ServerChatUI extends JFrame {
 
@@ -35,16 +36,16 @@ public class ServerChatUI extends JFrame {
 		this.server=server;
 		setTitle("Server: "+user);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 385);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(new Rectangle(0, 0, 50, 100));
+		panel.setBounds(new Rectangle(5, 322, 440, 36));
 		
-		contentPane.add(panel, BorderLayout.SOUTH);
+		contentPane.add(panel);
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		textField = new JTextField();
@@ -52,14 +53,16 @@ public class ServerChatUI extends JFrame {
 		panel.add(textField);
 		textField.setColumns(30);
 		
-		btnSend = new JButton("Send");
-		panel.add(btnSend);
-		
 		scrollPane = new JScrollPane();
-		contentPane.add(scrollPane, BorderLayout.CENTER);
+		scrollPane.setBounds(5, 5, 440, 317);
+		contentPane.add(scrollPane);
 		
 		textArea = new JTextArea();
 		scrollPane.setViewportView(textArea);
+		
+		btnSend = new JButton("Send");
+		scrollPane.setRowHeaderView(btnSend);
+		btnSend.setBackground(Color.RED);
 		btnSend.addActionListener(new ActionListener() {
 
 			@Override

@@ -91,7 +91,7 @@ public class DBManager {
 		createConnection();
 		
 		try {
-			rs = st.executeQuery("select * from users");
+			rs = st.executeQuery("select * from users2");
 //		Now we iterate over ResultSet to get the data. When we call next(),
 //		it checks if there's a next row of data, and if there is it moves
 //		the cursor to that row. You should figure out how the get methods work?
