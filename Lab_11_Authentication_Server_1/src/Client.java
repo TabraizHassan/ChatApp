@@ -62,7 +62,7 @@ public class Client {
 					try {
 						while(true) {
 							Packet msg=(Packet) cli.ois.readObject();
-							System.out.println("MSG received in client"+msg.getMsg());
+							System.out.println("MSG received in client: "+msg.getMsg());
 							if(msg.getMsg().equals("OK")) {
 								System.out.println("INSIDE CHECKING");
 								cli.login.dispose();
