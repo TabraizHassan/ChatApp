@@ -11,7 +11,7 @@ public class DBManager {
 //	The connection string (also called Database URL) specifies the
 //	the DBMS we want to connect to, where that DBMS is located
 //	(localhost in our case), and the name of the database
-	private String connectionString = "jdbc:mysql://localhost/mydatabase";
+	private String connectionString = "jdbc:mysql://localhost:8889/ChatApp";
 
 //	Note that Connection, Statement, and ResultSet, all three are
 //	actually interfaces in Java, not classes. So we cannot instantiate
@@ -59,7 +59,7 @@ public class DBManager {
 //		to instantiate a connection object (which knows how to connect to
 //		MySQL).
 		try {
-			conn = DriverManager.getConnection(connectionString, "root", "");
+			conn = DriverManager.getConnection(connectionString, "root", "root");
 
 //		Once we have the connection to DBMS, we use it get the Statement
 //		object, which we'll use to carry out execution of the SQL statement
@@ -98,7 +98,15 @@ public class DBManager {
 			while (rs.next()) {
 				// System.out.println(rs.getString(1)+" "
 				// +rs.getString(2)+" ");
-				System.out.println(rs.getString(1) + "\t" + rs.getString(2) + "\t" + rs.getString(3));
+		
+				
+				
+			System.out.println(rs.getString(1) + "\t" + rs.getString(2) + "\t" + rs.getString(3));
+			
+				
+				//System.out.println(rs.getString(1) + "\t" + rs.getString(2));
+				
+				
 				
 				if(user.equalsIgnoreCase(rs.getString(1))) {
 					if(password.equals(rs.getString(2))) {
