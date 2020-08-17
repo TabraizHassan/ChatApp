@@ -9,12 +9,38 @@ import javax.swing.JButton;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.FlowLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import java.awt.Color;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JLabel;
+
+
+
+
+
+
+
+
+import javax.swing.*;
+import javax.swing.border.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.net.*;
+import java.io.*;
+
+import java.util.Calendar;
+import java.text.SimpleDateFormat;import javax.swing.*;
+
+
+
+
 
 public class ServerChatUI extends JFrame {
 
@@ -25,7 +51,9 @@ public class ServerChatUI extends JFrame {
 	JButton btnSend;
 	String user;
 	MultiThreadServer server;
+	private JLabel lblStatus;
 
+	Boolean typing;
 	
 
 	/**
@@ -36,16 +64,12 @@ public class ServerChatUI extends JFrame {
 		this.server=server;
 		setTitle("Server: "+user);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 385);
+		setBounds(100, 100, 519, 408);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(new Rectangle(5, 322, 440, 36));
-		
-		contentPane.add(panel);
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		textField = new JTextField();
@@ -54,14 +78,11 @@ public class ServerChatUI extends JFrame {
 		textField.setColumns(30);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(5, 5, 440, 317);
-		contentPane.add(scrollPane);
 		
 		textArea = new JTextArea();
-		scrollPane.setViewportView(textArea);
+		scrollPane.setColumnHeaderView(textArea);
 		
 		btnSend = new JButton("Send");
-		scrollPane.setRowHeaderView(btnSend);
 		btnSend.setBackground(Color.RED);
 		btnSend.addActionListener(new ActionListener() {
 
@@ -76,10 +97,100 @@ public class ServerChatUI extends JFrame {
 			
 		});
 		
-		textField.addKeyListener(new KeyListener() {
-			@Override
-			public void keyTyped(KeyEvent arg0) {
-				// TODO Auto-generated method stub
+		lblStatus = new JLabel("status");
+		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+								.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 446, GroupLayout.PREFERRED_SIZE)
+								.addComponent(panel, GroupLayout.PREFERRED_SIZE, 440, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(btnSend, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(186)
+							.addComponent(lblStatus)))
+					.addContainerGap())
+		);
+		
+		
+		
+		
+		
+		
+		 Timer t = new Timer(1, new ActionListener(){
+	           public void actionPerformed(ActionEvent ae){
+	               if(!typing){
+	                   lblStatus.setText("Active Now");
+	               }
+	           }
+	       });
+		
+		
+		
+		
+		 t.setInitialDelay(2000);
+		 
+		 
+		 
+	
+		
+		
+		
+		
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addComponent(lblStatus)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 317, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
+				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+					.addContainerGap(65, Short.MAX_VALUE)
+					.addComponent(btnSend, GroupLayout.PREFERRED_SIZE, 296, GroupLayout.PREFERRED_SIZE)
+					.addGap(20))
+		);
+		contentPane.setLayout(gl_contentPane);
+		
+		
+		
+		
+		textField.addKeyListener(new KeyAdapter(){
+	           public void keyPressed(KeyEvent ke){
+	               lblStatus.setText("typing...");
+	               
+	               t.stop();
+	               
+	               typing = true;
+	           }
+	           
+	           public void keyReleased(KeyEvent ke){
+	               typing = false;
+	               
+	               if(!t.isRunning()){
+	                   t.start();
+	               }
+	           }
+	       });
+	       
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		//textField.addKeyListener(new KeyListener() {
+		//	@Override
+		//	public void keyTyped(KeyEvent arg0) {
+		/*		// TODO Auto-generated method stub
 			}
 			@Override
 			public void keyReleased(KeyEvent arg0) {
@@ -91,7 +202,7 @@ public class ServerChatUI extends JFrame {
 				// TODO Auto-generated method stub
 				
 			}
-		});
+		});*/
 		
 	}
 	
@@ -99,5 +210,4 @@ public class ServerChatUI extends JFrame {
 		
 		textArea.setText(textArea.getText()+"\n"+sender+":"+msg);
 	}
-
 }

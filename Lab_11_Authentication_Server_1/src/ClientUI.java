@@ -1,17 +1,23 @@
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JTextField;
-import javax.swing.JButton;
+
 import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.FlowLayout;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+
+import javax.swing.*;
+import javax.swing.border.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.net.*;
+import java.io.*;
+
+import java.util.Calendar;
+import java.text.SimpleDateFormat;import javax.swing.*;
+
+
+
 
 public class ClientUI extends JFrame {
 
@@ -22,6 +28,8 @@ public class ClientUI extends JFrame {
 	JButton btnSend;
 	String user;
 	Client client;
+	Boolean typing;
+	private JLabel lblStatus;
 
 	
 
@@ -34,14 +42,14 @@ public class ClientUI extends JFrame {
 		
 		setTitle("Client: "+user);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 474, 388);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(new Rectangle(5, 234, 440, 39));
+		panel.setBounds(new Rectangle(5, 321, 440, 39));
 		
 		contentPane.add(panel);
 		panel.setLayout(null);
@@ -56,11 +64,60 @@ public class ClientUI extends JFrame {
 		panel.add(btnSend);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(5, 5, 440, 229);
+		scrollPane.setBounds(5, 57, 440, 229);
 		contentPane.add(scrollPane);
 		
 		textArea = new JTextArea();
 		scrollPane.setViewportView(textArea);
+		
+		lblStatus = new JLabel("Status");
+		lblStatus.setBounds(204, 18, 61, 16);
+		contentPane.add(lblStatus);
+		
+		
+		
+		
+
+		 Timer t = new Timer(1, new ActionListener(){
+	           public void actionPerformed(ActionEvent ae){
+	               if(!typing){
+	                   lblStatus.setText("Active Now");
+	               }
+	           }
+	       });
+		
+		
+		
+		
+		 t.setInitialDelay(2000);
+		 
+		 
+		 
+		 
+		 textField.addKeyListener(new KeyAdapter(){
+	           public void keyPressed(KeyEvent ke){
+	               lblStatus.setText("typing...");
+	               
+	               t.stop();
+	               
+	               typing = true;
+	           }
+	           
+	           public void keyReleased(KeyEvent ke){
+	               typing = false;
+	               
+	               if(!t.isRunning()){
+	                   t.start();
+	               }
+	           }
+	       });
+	       
+		 
+		 
+		 
+		
+		
+		
 		btnSend.addActionListener(new ActionListener() {
 
 			@Override
